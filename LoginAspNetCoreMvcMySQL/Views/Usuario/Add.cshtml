@@ -1,0 +1,51 @@
+﻿@model LoginAspNetCoreMvcMySQL.Models.Usuarios
+
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Adicionar Usuário</title>
+</head>
+<body>
+    <div class="mx-auto" style="width: 500px;">
+
+
+        <h3>Cadastro de Usuários</h3>
+
+        <form method="post" asp-controller="usuario" asp-action="add">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label">Nome</label>
+                <input type="text" class="form-control" asp-for="Nome" aria-describedby="emailHelp" placeholder="Insira seu Nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                <input type="text" class="form-control" asp-for="Usuario" aria-describedby="emailHelp" placeholder="Nome de Usuário" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Senha</label>
+                <input type="password" class="form-control" asp-for="Senha" aria-describedby="emailHelp" placeholder="Senha" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nível</label>
+                <select class="form-control" asp-for="Nivel">
+                    <option value="Comum">Comum</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Ativo</label>
+                <input type="checkbox" asp-for="Ativo">
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Salvar" />
+        </form>
+    </div>
+</body>
+</html>
+

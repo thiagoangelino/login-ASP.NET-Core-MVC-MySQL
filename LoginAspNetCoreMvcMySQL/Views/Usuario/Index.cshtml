@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @ViewBag.login.Nome - @ViewBag.login.Nivel
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Usuários</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (ViewBag.login.Nivel == "Admin")
+                        {
+                            <a class="nav-link" asp-controller="cliente" asp-action="index">Clientes</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link disabled" aria-disabled="true" asp-controller="cliente" asp-action="index">Clientes</a>
+                        }
+
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="usuario" asp-action="login">Sair</a>
+                    </li>
+
+                </ul>
+                <form class="d-flex" asp-controller="usuario" asp-action="buscar">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" name="nome">
+                    <input class="btn btn-outline-success" type="submit" value="Buscar" />
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!--<div class="mx-auto" style="width: 600px;">-->
+
+        <div align="right" style="margin-bottom: 20px;">
+            <a type="button" class="btn btn-success" asp-controller="usuario" asp-action="add">Adicionar</a>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Senha</th>
+                    <th scope="col">Ativo</th>
+                    <th scope="col">Nível</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var usuario in ViewBag.usuarios)
+                {
+
+                    <tr>
+                        <th scope="row">@usuario.Id</th>
+                        <td>@usuario.Nome</td>
+                        <td>@usuario.Usuario</td>
+                        <td>@usuario.Senha</td>
+                        <td>
+                            @if (usuario.Ativo == "false")
+                            {
+                                <text>
+                                    Não
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                    Sim
+                                </text>
+                            }
+
+                        </td>
+                        <td>@usuario.Nivel</td>
+                        <td>
+                            <a type="button" class="btn btn-info" asp-controller="usuario" asp-route-id="@usuario.Id" asp-action="edit">Editar</a>
+                            <a type="button" class="btn btn-danger" asp-controller="usuario" asp-route-id="@usuario.Id" asp-action="delete" onclick="return confirm('Excluir o registro selecionado?')">Deletar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
